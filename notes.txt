@@ -1,0 +1,10 @@
+first we started working on marketing section
+--> for theme content we can get code from shadcn directly and just copy paste code 
+--> we can get theme provider for the nextjs app to handle the dark and light mode from shadcn/ui
+--> mode-toggle code also we can get from shadcn 
+dark mode -> nextjs
+--> Then we install convex -> run convex it will ask to create account if not created and will create convex folder and its content in our project. It will also create .env.local and its config
+--> Go to clerk website create account select providers and framework and install clerk in project "pnpm add @clerk/nextjs" mentions in docs we will get env variables from doc which we have to paste in project
+
+--> read docs of clerk on convex it will instruct throught next process on clerk. we have to create a convex template on clerk. copy url from there as instructed and create a auth.config.js inside convex folder and paste code and url in domain (clerk --> your acc --> configure --> JWT template)
+--> install @clerk/clerk-react create convex-provider.tsx
