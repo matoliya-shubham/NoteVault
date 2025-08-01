@@ -1,5 +1,11 @@
-import { mutationGeneric, queryGeneric } from "convex/server";
+import {
+  mutationGeneric,
+  Query,
+  queryGeneric,
+  QueryInitializer,
+} from "convex/server";
 import { v } from "convex/values";
+import { DataModel } from "./_generated/dataModel";
 
 export const get = queryGeneric({
   handler: async (context) => {
@@ -52,10 +58,22 @@ export const getSidebar = queryGeneric({
     }
 
     const userId = identity.subject;
+    const tableQuery: QueryInitializer<DataModel["documents"]> =
+      context.db.query("documents");
 
-    const documents = await context.db
-      .query("documents")
-      .withIndex("by_user_parent", (q) => q.eq("userId", userId))
+    let indexedQuery: Query<DataModel["documents"]> = tableQuery;
+
+    indexedQuery = tableQuery.withIndex("by_user_parent", (q) =>
+      q.eq("userId", userId)
+    );
+
+    if (args.parentDocument !== undefined) {
+      indexedQuery = tableQuery.withIndex("by_user_parent", (q) =>
+        q.eq("userId", userId).eq("parentDocument", args.parentDocument)
+      );
+    }
+
+    const documents = await indexedQuery
       .filter((q) => q.eq(q.field("isArchived"), false))
       .order("desc")
       .collect();
