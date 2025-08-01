@@ -39,3 +39,27 @@ export const create = mutationGeneric({
     return document;
   },
 });
+
+export const getSidebar = queryGeneric({
+  args: {
+    parentDocument: v.optional(v.id("documents")),
+  },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const userId = identity.subject;
+
+    const documents = await context.db
+      .query("documents")
+      .withIndex("by_user_parent", (q) => q.eq("userId", userId))
+      .filter((q) => q.eq(q.field("isArchived"), false))
+      .order("desc")
+      .collect();
+
+    return documents;
+  },
+});

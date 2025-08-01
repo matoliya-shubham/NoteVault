@@ -1,15 +1,31 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
-import { usePathname } from "next/navigation";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { UserItem } from "./User-item";
-import { useQuery } from "convex/react";
+import { UserItem } from "./UserItem";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
+import { useSettings } from "@/hooks/use-settings";
+import { useSearch } from "@/hooks/use-search";
+import { Item } from "./Item";
+import { create } from "@/convex/documents";
+import { DocumentList } from "./DocumentList";
 
 export const Navigation = () => {
+  const router = useRouter();
+  const settings = useSettings();
+  const search = useSearch();
+  const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const isResizingRef = useRef(false);
@@ -18,6 +34,8 @@ export const Navigation = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const documents = useQuery(api.documents.get);
+  const create = useMutation(api.documents.create);
+
   useEffect(() => {
     if (isMobile) {
       collapse();
@@ -92,6 +110,16 @@ export const Navigation = () => {
       setTimeout(() => setIsResetting(false), 300);
     }
   };
+
+  const handleCreate = () => {
+    const promise = create({ title: "Untitled" });
+
+    toast.promise(promise, {
+      loading: "Creating new note...",
+      success: "New note created!",
+      error: "Failed to create note.",
+    });
+  };
   return (
     <>
       <aside
@@ -114,11 +142,12 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
+          <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
-          {documents?.map((document) => (
-            <div key={document._id}>{document.title}</div>
-          ))}
+          <DocumentList />
         </div>
         <div
           onMouseDown={handleMouseDown}
