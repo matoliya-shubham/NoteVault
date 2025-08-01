@@ -14,13 +14,12 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./UserItem";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import { useSettings } from "@/hooks/use-settings";
 import { useSearch } from "@/hooks/use-search";
 import { Item } from "./Item";
-import { create } from "@/convex/documents";
 import { DocumentList } from "./DocumentList";
 import {
   Popover,
@@ -41,7 +40,6 @@ export const Navigation = () => {
   const navbarRef = useRef<HTMLDivElement>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
-  const documents = useQuery(api.documents.get);
   const create = useMutation(api.documents.create);
 
   useEffect(() => {

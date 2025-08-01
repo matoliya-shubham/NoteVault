@@ -4,6 +4,7 @@ import "./globals.css";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "sonner";
+import { ModalProvider } from "@/components/providers/modal-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -42,6 +43,7 @@ export default function RootLayout({
             storageKey="jotion-clone-2"
           >
             <Toaster position="bottom-center" richColors />
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
