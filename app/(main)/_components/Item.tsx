@@ -53,19 +53,19 @@ export function Item({
   const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
-  // const archive = useMutation(api.documents.archive);
+  const archive = useMutation(api.documents.archive);
 
-  // const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  //   event.stopPropagation();
-  //   if (!id) return;
-  //   const promise = archive({ id }).then(() => router.push("/documents"));
+  const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+    if (!id) return;
+    const promise = archive({ id }).then(() => router.push("/documents"));
 
-  //   toast.promise(promise, {
-  //     loading: "Moving to trash...",
-  //     success: "Note moved to trash!",
-  //     error: "Failed to archive note",
-  //   });
-  // };
+    toast.promise(promise, {
+      loading: "Moving to trash...",
+      success: "Note moved to trash!",
+      error: "Failed to archive note",
+    });
+  };
 
   const handleExpand = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
@@ -146,7 +146,7 @@ export function Item({
               side="right"
               forceMount
             >
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={onArchive}>
                 <Trash className="w-4 h-4 mr-2" />
                 Delete
               </DropdownMenuItem>
