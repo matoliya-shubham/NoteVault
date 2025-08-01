@@ -5,6 +5,9 @@ import { ChevronsLeft, MenuIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import { UserItem } from "./User-item";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -14,7 +17,7 @@ export const Navigation = () => {
   const navbarRef = useRef<HTMLDivElement>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
-
+  const documents = useQuery(api.documents.get);
   useEffect(() => {
     if (isMobile) {
       collapse();
@@ -110,10 +113,12 @@ export const Navigation = () => {
           <ChevronsLeft className="w-6 h-6" />
         </div>
         <div>
-          <p>Action Items</p>
+          <UserItem />
         </div>
         <div className="mt-4">
-          <p>Documents</p>
+          {documents?.map((document) => (
+            <div key={document._id}>{document.title}</div>
+          ))}
         </div>
         <div
           onMouseDown={handleMouseDown}
