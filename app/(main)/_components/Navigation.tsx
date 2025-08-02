@@ -10,7 +10,7 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./UserItem";
@@ -27,9 +27,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { TrashBox } from "./Trashbox";
+import { Navbar } from "./Navbar";
 
 export const Navigation = () => {
-  const router = useRouter();
   const settings = useSettings();
   const search = useSearch();
   const params = useParams();
@@ -181,15 +181,19 @@ export const Navigation = () => {
         )}
         ref={navbarRef}
       >
-        <nav className="bg-transparent px-3 py-2 w-full ">
-          {isCollapsed && (
-            <MenuIcon
-              role="button"
-              className="h-6 w-6 text-muted-foreground"
-              onClick={resetWidth}
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                className="w-6 h-6 text-muted-foreground"
+                onClick={resetWidth}
+                role="button"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );

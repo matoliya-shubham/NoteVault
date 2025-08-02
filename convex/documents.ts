@@ -319,3 +319,32 @@ export const update = mutationGeneric({
     return document;
   },
 });
+
+export const removeIcon = mutationGeneric({
+  args: { id: v.id("documents") },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Unauthenticated");
+    }
+
+    const userId = identity.subject;
+
+    const existingDocument = await context.db.get(args.id);
+
+    if (!existingDocument) {
+      throw new Error("Not found");
+    }
+
+    if (existingDocument.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const document = await context.db.patch(args.id, {
+      icon: undefined,
+    });
+
+    return document;
+  },
+});
