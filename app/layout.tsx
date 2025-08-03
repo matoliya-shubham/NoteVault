@@ -6,22 +6,23 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "sonner";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
+import { Vault } from "lucide-react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Jotion",
-  description: "The connected workspace where better, faster work happens.",
+  title: "NoteVault",
+  description: "Your Workspace for Thinking, Writing & Planning.",
   icons: {
     icon: [
       {
         media: "(prefers-color-scheme: light)",
-        url: "/logo.svg",
         href: "/logo.svg",
+        url: "/logo.svg",
       },
       {
         media: "(prefers-color-scheme: dark)",
-        url: "/logo-dark.svg",
         href: "/logo-dark.svg",
+        url: "/logo-dark.svg",
       },
     ],
   },
@@ -42,7 +43,7 @@ export default function RootLayout({
               defaultTheme="system"
               enableSystem
               disableTransitionOnChange
-              storageKey="jotion-clone-2"
+              storageKey="note-vault"
             >
               <Toaster position="bottom-center" richColors />
               <ModalProvider />

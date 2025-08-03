@@ -44,7 +44,7 @@ export default function DocumentsPage() {
         height="300"
       />
       <h2 className="text-lg font-medium">
-        Welcome to {user?.firstName}&apos;s Jotion
+        Welcome to {user?.firstName}&apos;s NoteVault
       </h2>
       <Button onClick={onCreate}>
         <PlusCircle className="w-4 h-4 mr-2" />

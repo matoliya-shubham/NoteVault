@@ -34,14 +34,14 @@ export function Navbar() {
               </Button>
             </SignInButton>
             <SignInButton mode="modal">
-              <Button size="sm">Get Joshion free</Button>
+              <Button size="sm">Get NoteVault free</Button>
             </SignInButton>
           </>
         )}
         {isAuthenticated && !isLoading && (
           <>
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/documents">Enter Jotion</Link>
+              <Link href="/documents">Enter NoteVault</Link>
             </Button>
             <UserButton />
           </>
