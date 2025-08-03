@@ -1,8 +1,8 @@
 const config = {
   providers: [
     {
-      domain: process.env.NEXT_PUBLIC_CONVEX_CLERK_DOMAIN,
-      applicationID: process.env.NEXT_PUBLIC_CONVEX_CLERK_TEMPLATE_ID,
+      domain: "https://clerk.note-vault-gules.vercel",
+      applicationID: "convex",
     },
   ],
 };
