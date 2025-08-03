@@ -28,8 +28,10 @@ import {
 } from "@/components/ui/popover";
 import { TrashBox } from "./Trashbox";
 import { Navbar } from "./Navbar";
+import { useRouter } from "next/navigation";
 
 export const Navigation = () => {
+  const router = useRouter();
   const settings = useSettings();
   const search = useSearch();
   const params = useParams();
@@ -118,7 +120,9 @@ export const Navigation = () => {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" });
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
 
     toast.promise(promise, {
       loading: "Creating new note...",
@@ -126,6 +130,7 @@ export const Navigation = () => {
       error: "Failed to create note.",
     });
   };
+
   return (
     <>
       <aside
