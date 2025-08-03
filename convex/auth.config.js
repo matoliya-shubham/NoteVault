@@ -1,8 +1,10 @@
-export default {
+const config = {
   providers: [
     {
-      domain: "https://darling-midge-83.clerk.accounts.dev",
-      applicationID: "convex",
+      domain: process.env.NEXT_PUBLIC_CONVEX_CLERK_DOMAIN,
+      applicationID: process.env.NEXT_PUBLIC_CONVEX_CLERK_TEMPLATE_ID,
     },
   ],
 };
+
+export default config;
