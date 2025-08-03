@@ -26,6 +26,21 @@ export const metadata: Metadata = {
       },
     ],
   },
+  openGraph: {
+    title: "NoteVault – Your connected workspace",
+    description: "Write, plan, and organize your work in one place.",
+    url: "https://note-vault-gules.vercel.app/",
+    siteName: "NoteVault",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NoteVault Preview Image",
+      },
+    ],
+    type: "website",
+  },
 };
 
 export default function RootLayout({
