@@ -1,7 +1,7 @@
 const config = {
   providers: [
     {
-      domain: "https://clerk.note-vault-gules.vercel",
+      domain: "https://darling-midge-83.clerk.accounts.dev",
       applicationID: "convex",
     },
   ],
