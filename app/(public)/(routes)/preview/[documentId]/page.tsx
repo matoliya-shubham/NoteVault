@@ -11,13 +11,13 @@ import { Cover } from "@/components/Cover";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface DocumentIdPageProps {
-  params: {
-    documentId: Promise<Id<"documents">>;
-  };
+  params: Promise<{
+    documentId: Id<"documents">;
+  }>;
 }
 
 export default function DocumentIdPage({ params }: DocumentIdPageProps) {
-  const documentId = use(params.documentId);
+  const { documentId } = use(params);
   const Editor = useMemo(
     () => dynamic(() => import("@/components/Editor"), { ssr: false }),
     []
